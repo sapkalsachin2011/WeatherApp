@@ -1,0 +1,67 @@
+﻿@page "/weather"
+@inject HttpClient Http
+
+<PageTitle>Weather</PageTitle>
+
+<h1>Weather Data</h1>
+
+@if (weatherData == null && errorMessage == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (errorMessage != null)
+{
+    <div class="alert alert-danger">@errorMessage</div>
+}
+else if (weatherData != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Min Temp (°C)</th>
+                <th>Max Temp (°C)</th>
+                <th>Precipitation (mm)</th>
+                <th>Status/Error</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var entry in weatherData)
+            {
+                <tr>
+                    <td>@entry.Date</td>
+                    <td>@(entry.MinTemperature?.ToString("F1") ?? "-")</td>
+                    <td>@(entry.MaxTemperature?.ToString("F1") ?? "-")</td>
+                    <td>@(entry.Precipitation?.ToString("F1") ?? "-")</td>
+                    <td>@(entry.Error ?? "OK")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<WeatherResult>? weatherData;
+    private string? errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            weatherData = await Http.GetFromJsonAsync<List<WeatherResult>>("http://localhost:5098/api/weather");
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Failed to load weather data: {ex.Message}";
+        }
+    }
+
+    public class WeatherResult
+    {
+        public string Date { get; set; } = string.Empty;
+        public double? MinTemperature { get; set; }
+        public double? MaxTemperature { get; set; }
+        public double? Precipitation { get; set; }
+        public string? Error { get; set; }
+    }
+}
