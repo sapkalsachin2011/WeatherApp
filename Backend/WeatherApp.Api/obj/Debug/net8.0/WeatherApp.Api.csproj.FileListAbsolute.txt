@@ -1,0 +1,9 @@
+/Users/sachinsapkal/Projects/PracticeExam/WeatherApp/Backend/WeatherApp.Api/obj/Debug/net8.0/WeatherApp.Api.csproj.AssemblyReference.cache
+/Users/sachinsapkal/Projects/PracticeExam/WeatherApp/Backend/WeatherApp.Api/obj/Debug/net8.0/rpswa.dswa.cache.json
+/Users/sachinsapkal/Projects/PracticeExam/WeatherApp/Backend/WeatherApp.Api/obj/Debug/net8.0/WeatherApp.Api.GeneratedMSBuildEditorConfig.editorconfig
+/Users/sachinsapkal/Projects/PracticeExam/WeatherApp/Backend/WeatherApp.Api/obj/Debug/net8.0/WeatherApp.Api.AssemblyInfoInputs.cache
+/Users/sachinsapkal/Projects/PracticeExam/WeatherApp/Backend/WeatherApp.Api/obj/Debug/net8.0/WeatherApp.Api.AssemblyInfo.cs
+/Users/sachinsapkal/Projects/PracticeExam/WeatherApp/Backend/WeatherApp.Api/obj/Debug/net8.0/WeatherApp.Api.csproj.CoreCompileInputs.cache
+/Users/sachinsapkal/Projects/PracticeExam/WeatherApp/Backend/WeatherApp.Api/obj/Debug/net8.0/WeatherApp.Api.MvcApplicationPartsAssemblyInfo.cs
+/Users/sachinsapkal/Projects/PracticeExam/WeatherApp/Backend/WeatherApp.Api/obj/Debug/net8.0/WeatherApp.Api.MvcApplicationPartsAssemblyInfo.cache
+/Users/sachinsapkal/Projects/PracticeExam/WeatherApp/Backend/WeatherApp.Api/obj/Debug/net8.0/WeatherApp.Api.sourcelink.json

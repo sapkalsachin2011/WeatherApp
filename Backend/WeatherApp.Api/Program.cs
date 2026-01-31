@@ -1,25 +1,24 @@
-
+using Polly;
+using Polly.Extensions.Http;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Register WeatherService with HttpClient and weather-data path
 var weatherDataDir = Path.GetFullPath(Path.Combine("..", "..", "Shared", "weather-data"));
-builder.Services.AddSingleton(sp =>
-    new WeatherApp.Api.Services.WeatherService(
-        new HttpClient(),
-        weatherDataDir,
-        sp.GetRequiredService<IConfiguration>()
-    )
-);
+builder.Services.AddSingleton<string>(weatherDataDir);
+// Register WeatherService as a typed client with Polly retry policy for transient HTTP errors
+builder.Services.AddHttpClient<WeatherApp.Api.Services.WeatherService>()
+    .AddPolicyHandler(HttpPolicyExtensions
+        .HandleTransientHttpError()
+        .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))));
 
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(policy =>
+    options.AddPolicy("AllowAll", policy =>
     {
-        policy.AllowAnyOrigin()
+        policy.WithOrigins("http://localhost:5291")
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
@@ -34,7 +33,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("AllowAll");
 app.UseAuthorization();
-app.MapControllers();
-app.UseCors();
+app.MapControllers().RequireCors("AllowAll");
 app.Run();
